@@ -1,6 +1,6 @@
 ## Display config
 
-# 1.25x display scaling
+# Display scaling
 output eDP-1 scale 1.00
 
 ## Variables
@@ -167,9 +167,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
-# Screenshot command
-bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy 
 
 ## Status Bar
 bar swaybar_command waybar
