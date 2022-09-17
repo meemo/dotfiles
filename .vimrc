@@ -1,10 +1,8 @@
 "" Appearance
-colorscheme slate
+colorscheme mycolorscheme
 
 " Enable syntax highlighting
 syntax on
-
-highlight ColorColumn guibg=#000000 term=reverse ctermbg=16
 
 " Show line numbers on the left
 set number
