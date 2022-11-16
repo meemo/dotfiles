@@ -100,3 +100,21 @@ set notimeout ttimeout ttimeoutlen=200
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
+
+" I hold shift down too long
+command! W w
+command! Q q
+command! WQ wq
+
+" Automatically insert closing parenthesis, quote, bracket, etc.
+" ctrl-v before typing to escape it so single characters can be written
+"inoremap " ""<left>
+"inoremap ' ''<left>
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
+
+" Automatically put the closing bracket in the appropriate position
+"inoremap (<CR> (<CR>)<ESC>O
+"inoremap [<CR> [<CR>]<ESC>O
+inoremap {<CR> {<CR>}<ESC>O
