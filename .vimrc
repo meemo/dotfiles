@@ -17,7 +17,10 @@ set wrap
 set ruler
 
 " Ruler at 120 characters, with the theme this is a black bar
-set colorcolumn=120
+set textwidth=120
+set wrapmargin=0
+set formatoptions+=t
+set colorcolumn=+1
 
 "" Misc
 " Disable vi compatibility, causes weird issues
