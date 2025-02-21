@@ -45,17 +45,18 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 
-" Do not save backup files
-set nobackup
-
-" DO save swap files
+" DO save swap files, but only in a specific directory
+set directory=~/.vim/swapfiles//
 set swapfile
 
-" DO save undo files, but only in a specific directory (which is created when dotfiles dir is copied)
+" DO save undo files, but only in a specific directory
 set undodir=~/.vim/undofiles
 set undofile
 
-" While searching though a file incrementally highlight matching characters as you type
+" Do not save backup files (swap+undo files are better)
+set nobackup
+
+" While searching though a file incrementally, highlight matching characters as you type
 set incsearch
 
 " Ignore capital letters during search
@@ -137,7 +138,7 @@ inoremap {<CR> {<CR>}<ESC>O
 
 " Save and restore cursor and screen position
 au BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \ if line("'\"") > 0 && line("'\"") <= line("$") && &ft !~# 'commit' |
     \   exe "normal! g`\"zv" |
     \ endif
 
@@ -152,3 +153,41 @@ au BufWinLeave * mkview
 
 " Automatically load view when entering buffer
 au BufWinEnter * silent! loadview
+
+" Auto-reload vimrc when saved
+autocmd! bufwritepost .vimrc source %
+
+" Faster terminal response
+set ttyfast
+
+" Don't redraw during macros (better performance)
+set lazyredraw
+
+" Always show status line
+set laststatus=2
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Better wildmenu completion
+set wildmode=longest,list,full
+
+" Persistent undo even after closing vim
+set undoreload=10000
+
+" Split windows open in more natural positions
+set splitbelow
+set splitright
+
+" Quick split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Quick save/exit
+let mapleader=" "
+nnoremap <leader>w :w<CR>
+nnoremap <leader>wq :wq<CR>
+nnoremap <leader>q :q<CR>
