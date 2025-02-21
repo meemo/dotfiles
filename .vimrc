@@ -122,8 +122,33 @@ command! W w
 command! Q q
 command! WQ wq
 
+" Automatically insert closing parenthesis, quote, bracket, etc.
+" ctrl-v before typing to escape it so single characters can be written
+"inoremap " ""<left>
+"inoremap ' ''<left>
+"inoremap ( ()<left>
+"inoremap [ []<left>
+"inoremap { {}<left>
+
 " Automatically put the closing bracket in the appropriate position
+"inoremap (<CR> (<CR>)<ESC>O
+"inoremap [<CR> [<CR>]<ESC>O
 inoremap {<CR> {<CR>}<ESC>O
 
-" Disable modelines (errors occasionally on certain files)
-set nomodeline
+" Save and restore cursor and screen position
+au BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"zv" |
+    \ endif
+
+" Save view settings (cursor position, folds, etc.)
+set viewoptions=cursor,folds,slash,unix
+
+" Directory to store view files
+set viewdir=~/.vim/viewfiles
+
+" Automatically save view when leaving buffer
+au BufWinLeave * mkview
+
+" Automatically load view when entering buffer
+au BufWinEnter * silent! loadview
