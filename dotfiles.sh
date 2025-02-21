@@ -4,11 +4,10 @@
 # Requires git to be installed.
 
 set -eu
-set -o pipefail
 
 REPO="https://github.com/meemo/dotfiles"
 DOTFILES_DIR="$HOME/dotfiles"
-BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="/tmp/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 
 safe_copy() {
     src="$1"
