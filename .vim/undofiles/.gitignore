@@ -1,0 +1,2 @@
+# Don't commit the undo files themselves. This also makes the directory get created when dotfiles are copied
+*.un~

@@ -16,8 +16,20 @@ set wrap
 " Show the ruler (cursor position at the bottom left)
 set ruler
 
+" Custom status Bar
+set statusline =%1*\ %n\ %*     " Buffer number
+set statusline +=%4*\ %<%F%*    " Full path
+set statusline +=%2*%m%*        " Modified flag
+set statusline +=%1*%=%5l%*     " Current line
+set statusline +=%2*/%L%*       " Total lines
+set statusline +=%1*%4v\ %*     " Virtual column number
+set statusline +=%2*0x%02B\ %*  " ASCII code of char under cursor
+
 " Ruler at 120 characters, with the theme this is a black bar
-set colorcolumn=120
+set textwidth=120
+set wrapmargin=0
+set formatoptions+=t
+set colorcolumn=+1
 
 "" Misc
 " Disable vi compatibility, causes weird issues
@@ -38,6 +50,10 @@ set nobackup
 
 " DO save swap files
 set swapfile
+
+" DO save undo files, but only in a specific directory (which is created when dotfiles dir is copied)
+set undodir=~/.vim/undofiles
+set undofile
 
 " While searching though a file incrementally highlight matching characters as you type
 set incsearch
