@@ -9,58 +9,16 @@ git_branch() {
     fi
 }
 
-# Function to shorten directory path properly
-shorten_path() {
-    local path="$1"
-    
-    # Replace $HOME with ~
-    path="${path/#$HOME/~}"
-    
-    # If just ~ or /, return as is
-    if [ "$path" = "~" ] || [ "$path" = "/" ]; then
-        echo "$path"
-        return
-    fi
-    
-    # Split the path into components
-    IFS='/' read -ra components <<< "$path"
-    
-    local result=""
-    local i=0
-    local num_components=${#components[@]}
-    
-    # Handle the first component (empty for absolute paths, ~ for home paths)
-    if [ -z "${components[0]}" ]; then
-        # Absolute path starting with /
-        result="/"
-        i=1
-    elif [ "${components[0]}" = "~" ]; then
-        # Path starting with ~
-        result="~"
-        i=1
-    fi
-    
-    # Process all directories except the last one
-    for ((; i<num_components-1; i++)); do
-        if [ -n "${components[$i]}" ]; then
-            # Use only the first letter for intermediate directories
-            result="${result}/${components[$i]:0:1}"
-        fi
-    done
-    
-    # Add the last directory in full (if there is one)
-    if [ $num_components -gt 0 ] && [ -n "${components[$num_components-1]}" ]; then
-        result="${result}/${components[$num_components-1]}"
-    fi
-    
-    echo "$result"
+# Function to display path with ~ for home directory
+display_path() {
+    echo "${PWD/#$HOME/~}"
 }
 
 # 256_noir.vim inspired color scheme for bash prompt:
 # - username and hostname: light white (255, #eeeeee)
 # - @ symbol and directory: medium gray (245, #8a8a8a)
 # - git branch: light white (255, #eeeeee)
-PROMPT_COMMAND='PS1="\[\033[38;5;255m\]\u\[\033[38;5;245m\]@\[\033[38;5;255m\]\h\[\033[00m\] \[\033[38;5;245m\]$(shorten_path "\$PWD")\[\033[00m\]\[\033[38;5;255m\]$(git_branch)\[\033[00m\]> "'
+PROMPT_COMMAND='PS1="\[\033[38;5;255m\]\u\[\033[38;5;245m\]@\[\033[38;5;255m\]\h\[\033[00m\] \[\033[38;5;245m\]$(display_path)\[\033[00m\]\[\033[38;5;255m\]$(git_branch)\[\033[00m\]> "'
 
 # Add colors to common commands by default
 alias ls='ls --color=auto'
