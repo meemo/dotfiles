@@ -23,9 +23,7 @@ shorten_path() {
     fi
     
     # Split the path into components
-    local IFS='/'
-    local components=()
-    read -ra components <<< "$path"
+    IFS='/' read -ra components <<< "$path"
     
     local result=""
     local i=0
@@ -62,7 +60,7 @@ shorten_path() {
 # - username and hostname: light white (255, #eeeeee)
 # - @ symbol and directory: medium gray (245, #8a8a8a)
 # - git branch: light white (255, #eeeeee)
-PROMPT_COMMAND='PS1="\[\033[38;5;255m\]\u\[\033[38;5;245m\]@\[\033[38;5;255m\]\h\[\033[00m\] \[\033[38;5;245m\]$(shorten_path "$(pwd)")\[\033[00m\]\[\033[38;5;255m\]$(git_branch)\[\033[00m\]> "'
+PROMPT_COMMAND='PS1="\[\033[38;5;255m\]\u\[\033[38;5;245m\]@\[\033[38;5;255m\]\h\[\033[00m\] \[\033[38;5;245m\]$(shorten_path "\$PWD")\[\033[00m\]\[\033[38;5;255m\]$(git_branch)\[\033[00m\]> "'
 
 # Add colors to common commands by default
 alias ls='ls --color=auto'
@@ -83,6 +81,11 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 export HISTCONTROL=ignoreboth
 export HISTSIZE=10000
 export HISTFILESIZE=20000
+
+# Add ~/dev/notes/notes to PATH if it exists
+if [ -d "$HOME/dev/notes/notes" ]; then
+    export PATH="$HOME/dev/notes/notes:$PATH"
+fi
 
 # Enable bash completion
 if ! shopt -oq posix; then
