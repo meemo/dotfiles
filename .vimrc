@@ -1,5 +1,6 @@
 "" Appearance
-colorscheme mycolorscheme
+"colorscheme mycolorscheme
+colorscheme 256_noir
 
 " Enable syntax highlighting
 syntax on
